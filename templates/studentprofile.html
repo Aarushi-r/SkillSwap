@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user["name"] }} - SkillSwap</title>
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+   <nav class="navbar">
+
+    <h1>SkillSwap</h1>
+
+    <div>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/skills">My Skills</a>
+        <a href="/find-students">Find Students</a>
+        <a href="/matches">Matches</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+</nav>
+
+    <div class="profile-card">
+
+    <h2>{{ user["name"] }}</h2>
+
+    <p>
+        <strong>College:</strong>
+        {{ user["college"] }}
+    </p>
+
+    <p>
+        <strong>Course:</strong>
+        {{ user["course"] }}
+    </p>
+
+    <p>
+        <strong>Year:</strong>
+        {{ user["year"] }}
+    </p>
+
+    <hr>
+
+    <h3>Skills I Can Teach</h3>
+
+
+    {% if teaching_skills %}
+
+        <ul>
+        {% for skill in teaching_skills %}
+            <li class="skill-badge">
+    {{ skill["skill_name"] }}
+</li>
+        {% endfor %}
+        </ul>
+
+    {% else %}
+
+        <p>No teaching skills added yet.</p>
+
+    {% endif %}
+
+
+    <h3>Skills I Want to Learn</h3>
+
+    {% if learning_skills %}
+
+        <ul>
+        {% for skill in learning_skills %}
+            <li>{{ skill["skill_name"] }}</li>
+        {% endfor %}
+        </ul>
+
+    {% else %}
+
+        <p>No learning skills added yet.</p>
+
+    {% endif %}
+
+    <br>
+
+   </div>
+
+<br>
+
+<a href="/matches" class="btn">
+    Back to Matches
+</a>
+
+<a href="/dashboard" class="btn">
+    Dashboard
+</a>
+
+</main>
+
+<footer>
+    <p>SkillSwap — Student Skill Exchange Platform</p>
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Skills - SkillSwap</title>
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+    <h1>SkillSwap</h1>
+
+    <div>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/skills">My Skills</a>
+        <a href="/find-students">Find Students</a>
+        <a href="/matches">Matches</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+</nav>
+
+<main class="container"></main>
+
+    <hr>
+
+    <div class="card">
+    <h3>Skills I Can Teach</h3>
+
+    {% if teaching_skills %}
+
+        <ul>
+
+        {% for skill in teaching_skills %}
+
+            <li>
+                {{ skill["skill_name"] }}
+
+                <form action="/skills/delete/{{ skill['skill_id'] }}/TEACH"
+                      method="POST"
+                      style="display:inline;">
+
+                    <button type="submit">
+                        Remove
+                    </button>
+
+                </form>
+            </li>
+
+        {% endfor %}
+
+        </ul>
+
+    {% else %}
+
+        <p>You haven't added any teaching skills yet.</p>
+
+    {% endif %}
+ </div>
+ 
+    <h3>Skills I Want to Learn</h3>
+
+    {% if learning_skills %}
+
+        <ul>
+
+        {% for skill in learning_skills %}
+
+            <li>
+                {{ skill["skill_name"] }}
+
+                <form action="/skills/delete/{{ skill['skill_id'] }}/LEARN"
+                      method="POST"
+                      style="display:inline;">
+
+                    <button type="submit">
+                        Remove
+                    </button>
+
+                </form>
+            </li>
+
+        {% endfor %}
+
+        </ul>
+
+    {% else %}
+
+        <p>You haven't added any learning skills yet.</p>
+
+    {% endif %}
+
+
+    <hr>
+
+    <h3>Add a Skill</h3>
+
+    <form action="/skills/add" method="POST">
+
+        <label>Select Skill:</label>
+
+        <select name="skill_id" required>
+
+            {% for skill in all_skills %}
+
+                <option value="{{ skill['skill_id'] }}">
+                    {{ skill["skill_name"] }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+        <label>Skill Type:</label>
+
+        <select name="skill_type" required>
+
+            <option value="TEACH">
+                I can teach this
+            </option>
+
+            <option value="LEARN">
+                I want to learn this
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <button type="submit">
+            Add Skill
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/dashboard">
+        Back to Dashboard
+    </a>
+
+    </main>
+
+<footer>
+    <p>SkillSwap — Student Skill Exchange Platform</p>
+</footer> 
+
+</body>
+
+</html>

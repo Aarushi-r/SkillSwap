@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Find Skill Partners - SkillSwap</title>
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+    <h1>SkillSwap</h1>
+
+    <div>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/skills">My Skills</a>
+        <a href="/find-students">Find Students</a>
+        <a href="/matches">Matches</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+</nav>
+
+<main class="container">
+
+    <h2>Find Skill Partners</h2>
+
+    <p>
+        Discover students who can teach skills you want to learn.
+    </p>
+
+    <hr>
+
+    <h3>Students who can teach skills</h3>
+
+    <div class="student-grid">
+
+    </div>
+
+    {% if students %}
+
+        {% for student in students %}
+
+            <div class="card">
+    <h3>{{ student["name"] }}</h3>
+
+                <p>
+                    <strong>College:</strong>
+                    {{ student["college"] }}
+                </p>
+
+                <p>
+                    <strong>Course:</strong>
+                    {{ student["course"] }}
+                </p>
+
+                <p>
+                    <strong>Year:</strong>
+                    {{ student["year"] }}
+                </p>
+
+                <p>
+    <strong>Can Teach:</strong>
+    <span class="skill-badge">
+        {{ student["skill_name"] }}
+    </span>
+</p>
+
+                <a href="/profile/{{ student['user_id'] }}" class="btn">
+    View Profile
+</a>
+
+            </div>
+
+            <hr>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No other students found.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="/dashboard">
+        Back to Dashboard
+    </a>
+
+    </main>
+
+<footer>
+    <p>SkillSwap — Student Skill Exchange Platform</p>
+</footer>
+
+</body>
+
+</html>

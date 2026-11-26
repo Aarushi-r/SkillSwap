@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Skill Matches - SkillSwap</title>
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+    <h1>SkillSwap</h1>
+
+    <div>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/skills">My Skills</a>
+        <a href="/find-students">Find Students</a>
+        <a href="/matches">Matches</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+</nav>
+
+<main class="container">
+
+    <h2>My Skill Matches</h2>
+
+    <p>
+        Students who can teach what you want to learn
+        and want to learn what you can teach.
+    </p>
+
+    <p>
+        Students whose skills match what you want to learn
+        and who want to learn something you can teach.
+    </p>
+
+    <hr>
+
+    {% if matches %}
+
+        {% for match in matches %}
+
+            <div class="match-card">
+
+    <h3>{{ match["name"] }}</h3>
+
+    <p>
+        <strong>College:</strong>
+        {{ match["college"] }}
+    </p>
+
+    <div class="match-skill">
+        <strong>They can teach you:</strong>
+        {{ match["their_teaching_skill"] }}
+    </div>
+
+    <div class="match-skill">
+        <strong>You can teach them:</strong>
+        {{ match["their_learning_skill"] }}
+    </div>
+
+    <br>
+
+    <a href="/profile/{{ match['user_id'] }}" class="btn">
+        View Profile
+    </a>
+
+</div>
+
+                <p>
+                    <strong>College:</strong>
+                    {{ match["college"] }}
+                </p>
+
+                <p>
+                    <strong>You can teach them:</strong>
+                    {{ match["their_learning_skill"] }}
+                </p>
+
+                <p>
+                    <strong>They can teach you:</strong>
+                    {{ match["their_teaching_skill"] }}
+                </p>
+
+                <a href="/profile/{{ match['user_id'] }}">
+                    View Profile
+                </a>
+
+            </div>
+
+            <hr>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="card">
+
+    <h3>No mutual matches yet</h3>
+
+    <p>
+        Add more teaching and learning skills to discover
+        potential skill partners.
+    </p>
+
+    <a href="/skills" class="btn">
+        Manage My Skills
+    </a>
+
+</div>
+    {% endif %}
+
+    <br>
+
+    <a href="/dashboard">
+        Back to Dashboard
+    </a>
+
+    </main>
+
+<footer>
+    <p>SkillSwap — Student Skill Exchange Platform</p>
+</footer>
+
+</body>
+
+</html>
